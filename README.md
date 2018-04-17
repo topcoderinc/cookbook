@@ -3,7 +3,7 @@
 ## Getting the Cookbook
 To get the Cookbook locally:
 - Install Git;
-- Install TeX parser for your OS, for ex., MikTeX for Windows;
+- Install TeX parser for your OS, for ex. MikTeX for Windows;
 - Install Pandoc;
 - git clone https://github.com/topcoderinc/cookbook.git
 
