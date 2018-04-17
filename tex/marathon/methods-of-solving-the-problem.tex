@@ -1,0 +1,498 @@
+\hypertarget{methods-of-solving-the-problem}{%
+\subsection{Methods of Solving the
+Problem}\label{methods-of-solving-the-problem}}
+
+\hypertarget{identifying-principal-types-of-problems}{%
+\subsubsection{Identifying Principal Types of
+Problems}\label{identifying-principal-types-of-problems}}
+
+\hypertarget{problem}{%
+\paragraph{Problem}\label{problem}}
+
+Marathon problems are more versatile than Algorithm ones, so they are
+harder to classify with respect to solving methods, and such
+classification will be rather generic. However, all Marathon problems
+can be classified with respect to completeness of provided information.
+
+\textbf{Solution}
+
+The principal problem types are the following:
+
+\begin{itemize}
+\item
+  full-information problems provide all information necessary to
+  evaluate each possible return at once.
+\item
+  multi-step problems provide the information in portions, and each
+  portion might depend on the outcome of previous steps.
+\item
+  hidden-information problems provide part of the information, and keep
+  hidden another part of it which is important for scoring.
+\end{itemize}
+
+\textbf{Discussion}
+
+Both Algorithm and Marathon tracks have a problem archive - a list of
+all problems which ever appeared in the matches, plus an option to solve
+them outside of the competition. Practicing (solving past problems to
+prepare to solving future problems) is less useful in Marathons than in
+Algorithm competitions. A lot of Algorithm problems use a relatively
+small set of algorithms, so once you know them all and can recognize and
+implement them fast, you're ready for future competitions, and most
+likely will do well.
+
+Marathon problems are not like this. Each of them is unique, and
+requires a unique solution which is seldom similar to any solution to
+previous problems. Besides, solving an Algorithm problem takes at most a
+few hours, while a Marathon problem can take weeks. That's why people
+might spend some more time with the problem they started after the match
+is over, to finish some idea or to try a new trick, but seldom solve a
+new problem from archive from the scratch.
+
+However, even a rough classification of problems can give a hint about
+possible techniques of solving it. Let's have a closer look at the
+suggested classification.
+
+\textbf{Full-information problems} are the common and probably the most
+popular type among participants. They provide all information about the
+subject of the problem, with nothing kept secret. The competitor just
+has to construct the solution based on the known information and return
+it, and he can predict just how well will this solution score on each
+test case. This allows to try constructing several solutions and pick
+the best of them, or to start with one solution and improve it step by
+step, etc.
+
+For this kind of problem the space of solutions is usually too large for
+straightforward search, but there are plenty of standard techniques like
+hill climbing and simulated annealing (discussed in next recipes) which
+can be applied in more or less evident way. Examples of full-information
+problems include
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14300\&pm=10942}{Planarity},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14264\&pm=10918}{PolymerPacking},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14227\&pm=10885}{BookSelection},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13964\&pm=10655}{EnclosingCircles},
+\href{http://community.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14556\&pm=11441}{QualityPolygons}
+and lots of others.
+
+\textbf{Multi-step problems} are also quite common and include
+game-based and measurement-based problems.
+
+In \textbf{game-based problems} you play a game against AI opponent or
+environment, and you have to make a small decision on each step. After
+your decision is implemented, you receive a portion of new information
+about the state of the game. This way the information you've got changes
+with each move, but you never know everything, and have to take
+decisions with only partial information. Examples of game-based problems
+include
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14195\&pm=10728}{ChessPuzzle},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike}
+etc.
+
+\textbf{Measurement-based problems} usually involve a certain object
+with unknown parameters. You are allowed a limited number of information
+requests (``measurements'') to uncover these parameters, and have to
+reconstruct the object the best you can from the pieces of information
+you learn. The number of measurements is usually limited to a number
+which is not enough to get full information, so you have to choose them
+wisely and approximate the unknown information from known fragments.
+Scoring is done by comparison of the actual object to your
+reconstruction, much like in hidden-information problems, but here you
+can control which information above initial one you get. Examples of
+measurement-based problems include
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14210\&pm=10807}{BlackBox},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13710\&pm=10322}{ReliefMap},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13568\&pm=10147}{GraphicalAuthentication},
+\href{http://community.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14502\&pm=11367}{ImageScanner}
+etc.
+
+\textbf{Hidden-information problems} are rather rare nowadays, but it's
+still an important class of problems. They have some information that is
+never given away to the competitor and is used only for scoring
+purposes. These are usually reconstruction problems and deciphering: you
+know something about an object, and have to reconstruct it using only
+this knowledge. Hidden information describes the actual object, and
+scoring is done based on comparison of the actual object and your
+reconstruction of it. Unlike measurement problems, hidden-information
+provide you no way to extend the initial information - you have to
+analyze it at best you can. Recent examples of hidden-information
+problems include
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14207\&pm=10756}{BrokenClayTile},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14176\&pm=10676}{Enigma},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13680\&pm=10276}{GrilleReconstruction}
+and earlier crypto-problems.
+
+Subtype of hidden-information problems is \textbf{randomized problems}.
+In them you have all information about some process, but it is simulated
+using certain random parameters which you can't predict. The task is to
+provide the parameters of simulation which yield a desired result or at
+least a close one. The scoring is done based on the results of actual
+simulation. Examples include
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13681\&pm=10293}{WatermarkSequence},
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13567\&pm=10119}{FlockingBehaviour}
+etc.
+
+Of course, from time to time there appear problems which are hard to
+classify, but realizing this basic classification can help a lot by
+limiting the space of problem solutions to be searched to techniques and
+tricks best applicable to problems of each particular class. For
+example, seeing a full-information problem, one can immediately start
+thinking about applying some form of hill-climbing to it (though it
+might not be the optimal solution).
+
+\hypertarget{generating-ideas-for-your-solution}{%
+\subsubsection{Generating Ideas for Your
+Solution}\label{generating-ideas-for-your-solution}}
+
+\hypertarget{problem-1}{%
+\paragraph{Problem}\label{problem-1}}
+
+You've read and analyzed the problem statement and maybe even launched
+the visualizer. You understand the problem, but don't know how to start
+solving it yet.
+
+\hypertarget{solution}{%
+\paragraph{Solution}\label{solution}}
+
+The first basic way of generating ideas is to rely on existing human
+knowledge about this class of problems (or this exact problem, if you're
+lucky). Almost all Marathon problems rely on something from the writer's
+experience - a game they played, an article they read, a task they had
+to manage in their daily life. Thus, it's quite probable to search and
+find something related to the problem or at least similar to it.
+
+The second way is to play with the problem yourself to study it in
+detail. Some problems contain non-evident patterns which can give a
+starting point for the solution.
+
+\hypertarget{discussion}{%
+\paragraph{Discussion}\label{discussion}}
+
+The good thing about Marathons is the amount of time you have: the
+typical two weeks gives you enough time to think about the problem, dig
+through Internet in search of similar problems and applicable
+approaches, try various ideas, reject inefficient ones and finally pick
+and polish the best one. Sometimes it's totally necessary to try several
+ideas to get a decent feel of the problem.
+
+Let's have a closer look at the strategies described in Solution and how
+they can be applied to existing Marathon problems.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Rely on existing knowledge of the problem
+\end{enumerate}
+
+Most Marathon problems have some real-life prototype, which may have
+drawn enough attention from other programmers or researchers to have
+documents that describe heuristics for solving this type of problem. The
+prototype can be either a known serious problem or a game which was
+formalized and studied.
+
+The strategy for solving this kind of problems is: pick out the keywords
+of the problem and try to search for them in various wordings on the
+Web.
+
+Examples of problems which allow using this approach are:
+
+\begin{itemize}
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14300\&pm=10942}{Planarity}
+  is based on a game of same name, which is simpler (it handles only
+  planar graphs) but is in turn based on rigorous research. The task is
+  to find the layout of the graph which produces its rectilinear
+  crossing number (or gets as close to is as possible), which in turn
+  has been subjected to a lot of investigation.
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14227\&pm=10885}{BookSelection}
+  is similar to lots of serious cutting and packing problems - strip or
+  bin packing, container loading, knapsack etc. All of them are easy to
+  find, so one just has to pick the most similar one (they differ in
+  subtle shades of problem statement) and study its solutions (which are
+  non-trivial but still give a starting point of thought).
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13897\&pm=10474}{TilesPuzzle}
+  is based on Eternity II puzzle, and at least one solution was based on
+  explanation of one of Eternity II solvers.
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike}
+  is based on a card game of same name, which is surprisingly
+  well-studied. I got an idea of my solution from an article which
+  describes ways of solving this game with some minor changes in the
+  input data.
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=10932\&pm=8426}{Permute}
+  is actually linear ordering problem, subject to plenty of studies as
+  well.
+\end{itemize}
+
+Another version of this approach is reading ``Post your approach'' for
+similar old problems or even studying the solutions themselves, though
+one has to be really desperate for this :-) A perfect example of this
+approach are the crypto-marathons which ran in 2008: in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13564\&pm=9906}{OneTimePad}
+Psyho used a very clever method of data compression to fit the necessary
+data into the size limit of submission, and in following matches it was
+successfully adopted by many competitors.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Play with the problem
+\end{enumerate}
+
+Recent visualizers for game-based problems tend to provide ``manual''
+mode - a mode in which the user interacts with the visualizer directly,
+without writing a solution. Older visualizers didn't have this feature,
+so one had to look for a non-TopCoder implementation of this game.
+
+Regardless of the tool you use, the idea is to try solving the problem
+by hand and to observe the patterns which you follow when doing it.
+Automating these patterns can give you at least a draft of a solution.
+Examples of problems which allow using this approach are:
+
+\begin{itemize}
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14195\&pm=10728}{ChessPuzzle}.
+  After a few games it becomes quite evident that it's better to clear
+  one layer of tiles completely before starting next layer. Another
+  observation (though a one not necessary for a good strategy) is that
+  there are more ways to move to the border and corner cells of the
+  board, so they should be left uncleared for as long as possible when
+  clearing the layer.
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}.
+  Playing it can hint that it's important to leave as many places to fit
+  the next tile as possible, regardless of what type it comes in.
+\item
+  \href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=10815\&pm=7789}{ContinousSameGame}.
+  A basic strategy derived from playing the game by hand can be ``remove
+  the blocks of all colors except for one, and hope that the blocks of
+  this color will form a large group in the end''.
+\end{itemize}
+
+\hypertarget{approaching-single-player-game-based-problems}{%
+\subsubsection{Approaching Single-Player Game-Based
+Problems}\label{approaching-single-player-game-based-problems}}
+
+\hypertarget{problem-2}{%
+\paragraph{Problem}\label{problem-2}}
+
+Quite a lot of Marathon problems are game-based and simulate
+more-or-less known board or card games, usually single-player, but
+sometimes multi-player, with server playing for the opponents. They
+require developing a strategy to win the game, or to do good in it.
+
+\hypertarget{solution-1}{%
+\paragraph{Solution}\label{solution-1}}
+
+The game-based problems follow the common pattern: on each move you are
+given the current state of the game, and you have to return your move.
+After the move you usually get some information about new state of the
+game which was not available before. In each state there exists a
+limited number of valid moves, and the general task can be divided in
+two sub-tasks: identifying valid moves and choosing the best one of
+them.
+
+Valid moves are identified using the game rules, exactly as described in
+problem statement. Usually the number of technically possible moves is
+limited, and it is possible to iterate over all of them and check each
+one for validity. Alternatively, you can generate all valid moves based
+on the rules.
+
+Thus, in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}
+you can iterate over all cells of the board and check whether placing
+the current tile there is possible accordingly to the rules of the game.
+In
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14196\&pm=10728}{ChessPuzzle},
+on the contrary, it might be easier to generate all cells which are
+allowed to click in the current state of game, since they are defined by
+the type and position of cell that was clicked last. Checking the
+validity of moves in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike}
+is a bit trickier because each step offers several types of moves:
+advancing the position in the deck and moving cards from the deck to the
+stack/pile, from the stack to the stack/pile, or from the pile to the
+stack. Each possibility must be checked separately.
+
+Identifying valid moves is a necessary step to implementing your
+solution, a fairly mechanical process. The real problem-solving begins
+at the stage of choosing the best move on each step in a way which will
+lead to the best game outcome possible.
+
+One of the possible techniques is: assign each game state a score which
+describes how ``good'' the state is. The score function is usually
+constructed heuristically, by playing the game, noting features of the
+game state which seem important for human decision and trying to
+formalize their contribution to score (as a bonus for good features and
+a penalty for bad ones).
+
+For example, in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike}
+the score of the state can be based on:
+
+\begin{itemize}
+\item
+  number of cards in completed piles (the most natural part of the
+  score, which shows how close to the end the game is);
+\item
+  number of valid moves from this state (more mobile states are scored
+  higher, since we don't want any dead ends);
+\item
+  number of cards in the deck;
+\item
+  number of face-down cards in the stacks (larger numbers are scored
+  lower, since they mean that we have a lot of unknown and unmanageable
+  cards);
+\item
+  difference of sizes of greatest and smallest completed piles (the
+  smaller, the better) etc.
+\end{itemize}
+
+In
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}
+the score of the state can be based on:
+
+\begin{itemize}
+\item
+  number of tiles on the board;
+\item
+  number of tiles in the row/column in which the last tile was placed;
+\item
+  for each possible tile - the number of positions where it can be
+  placed (with a penalty if a tile can be only discarded);
+\item
+  for each empty cell - the number of tiles which can be placed on it
+  (with a penalty if only wild-card can be placed) etc.
+\end{itemize}
+
+In
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14196\&pm=10728}{ChessPuzzle}
+the score of next click can be based on:
+
+\begin{itemize}
+\item
+  its position on the board (non-border cells are generally trickier to
+  get to, so they are scored higher),
+\item
+  number of valid moves after this click (once again, more mobile states
+  are scored higher),
+\item
+  number of layers left in this cell (the more layers are left, the
+  higher is the score) etc.
+\end{itemize}
+
+Once the score function is constructed, some form of greedy search with
+limited depth is possible. A sample pseudo-code follows:
+
+\begin{verbatim}
+function estimate_state(state, depth)
+{   if (depth < search_depth)
+   {   for each valid move from state
+           estimate_state(state after this move, depth+1)
+       return the score of the best of the searched states
+           and remember the move which leads to it
+   }
+   return the score of state
+}
+ 
+function main(state)
+{   for each valid move from state
+       estimate_state(state after this move, 0)
+   return the move which leads to the best of the searched states
+}
+\end{verbatim}
+
+The search of depth 0 is just greedily picking the move which leads to
+the best score on the current move. Increasing the depth of the search
+usually improves the quality of the result, but requires more
+implementation effort (to organize the search itself and storage of
+optimal moves) and runs longer, so it has to be done carefully. Some
+popular optimizations include:
+
+\begin{itemize}
+\item
+  checking for total time spent (depth of search varies depending on
+  time left),
+\item
+  discarding some states at deep levels of search,
+\item
+  storing the sequence of best moves found during the search. Thus, a
+  search of depth 4 will find the best sequence of 5 moves which can be
+  played next. The first move will be returned immediately, and the next
+  4 can be stored and returned at next 4 queries without repeating the
+  search.
+\end{itemize}
+
+\hypertarget{discussion-1}{%
+\paragraph{Discussion}\label{discussion-1}}
+
+Most problems allow to borrow the validity check from visualizer source
+code (reusing visualizer code is allowed ever since it became available
+without decompiling the visualizer). This gives a minor advantage to
+Java/C++/C\# users (this part of visualizer is written in a way which
+doesn't use any Java specifics, and basic C++/C\# syntax is quite
+similar to Java).
+
+Note that this recipe describes only one of the possible approaches to
+this kind of problems, and not necessarily the best or universal; in
+some problems it might turn out to be quite inefficient. Thus, in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}
+the winning approach was fundamentally different.
+
+Another method is to score the move itself instead of the game state it
+leads to. Thus, in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}
+it is evident that the moves which clear row AND column simultaneously
+are more valuable than the moves which clear row OR column, which in
+turn are more valuable than the moves which don't clear anything. This
+fact can't be described in terms of state scoring, since the state of
+the board after such move has no evidence of cleared rows and columns,
+and thus of the move which was just done.
+
+A version of this approach is to create a priority of move types
+(instead of priority of individual moves), try out the technically
+possible moves of each priority in turn and use the first valid move
+encountered (or one of the valid moves of first valid type encountered).
+This approach works nicely in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike},
+where moves are divided in types naturally, and prioritizing the types
+is easy.
+
+Note that Marathon game-based problems are different from Algorithm
+game-based problems: in Algorithm, you have full information about the
+game, while in Marathons some information stays hidden. Besides,
+Marathon games are usually large compared to Algorithm games, thus the
+whole space of states of the game can't be searched, and you need to
+invent some heuristics.
+
+In the problems which give you new information about state of the game
+after some moves you can't run a real search with full information.
+However, this can be fixed by making some problem-specific assumptions
+about what can be the score of the state after the move. Thus, in
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13565\&pm=10014}{Klondike}
+you get the value of face down card only when it is open, but this can
+be accounted in the score by assuming that opening a face down card is
+always valuable to us. In
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=14196\&pm=10728}{ChessPuzzle}
+it is profitable to try to remove all cells of topmost layer before
+starting next layer, so you can solve the problem as if there was only
+one layer; this way unknown information matters only between layers, and
+the search within the layer can be deep enough. In
+\href{http://www.topcoder.com/longcontest/?module=ViewProblemStatement\&rd=13795\&pm=10410}{TilesMatching}
+the state can be scored by using probabilities of getting each type of
+tile next.
+
+Finally, almost every version of described approaches requires not only
+in-depth analysis of the game, but also quite a lot of tuning. The set
+of state features, exact values of bonuses and penalties, depth and
+other parameters of search on each move - all these things should be
+fine-tuned only when you're sure that you're not able to invent a
+fundamentally different algorithmically and significantly better
+approach. These are the things you leave till the last days of match and
+tune as last attempt on improving your score.
